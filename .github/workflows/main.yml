@@ -8,8 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install Rust (Stable)
-        run:
-          curl https://sh.rustup.rs -sSf | sh -s -- -y
+      run: curl https://sh.rustup.rs -sSf | sh -s -- -y
     - name: Install Clippy
       run: rustup component add clippy
     - name: Install rustfmt
