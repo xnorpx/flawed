@@ -1,0 +1,25 @@
+name: Build, test, check with Clippy, and check formatting
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+    - name: Install Clippy
+      run: rustup component add clippy
+    - name: Install rustfmt
+      run: rustup component add rustfmt
+    - name: Build project
+      run: cargo build --verbose
+    - name: Test project
+      run: cargo test --verbose
+    - name: Check with Clippy
+      run: cargo clippy --all-targets --all-features -- -D warnings
+    - name: Check formatting
+      run: cargo fmt -- --check
