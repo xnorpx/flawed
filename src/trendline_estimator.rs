@@ -8,7 +8,9 @@ struct PacketTiming {
 }
 
 fn linear_fit_slope(packets: &VecDeque<PacketTiming>) -> Option<f64> {
-    if packets.len() < 2 {
+    let n = packets.len();
+
+    if n < 2 {
         return None;
     }
 
@@ -20,8 +22,8 @@ fn linear_fit_slope(packets: &VecDeque<PacketTiming>) -> Option<f64> {
         sum_y += packet.smoothed_delay_ms;
     }
 
-    let x_avg = sum_x / packets.len() as f64;
-    let y_avg = sum_y / packets.len() as f64;
+    let x_avg = sum_x / n as f64;
+    let y_avg = sum_y / n as f64;
 
     // Compute the slope k = \sum (x_i-x_avg)(y_i-y_avg) / \sum (x_i-x_avg)^2
     let mut numerator: f64 = 0.0;
